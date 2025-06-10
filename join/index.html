@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Join Tournament - BSEB PREP</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <script>
+    function openAppOrRedirect() {
+      const params = new URLSearchParams(window.location.search);
+      const tournamentId = params.get('tournamentId');
+
+      if (!tournamentId) {
+        document.body.innerHTML = '<h2>Invalid tournament link</h2>';
+        return;
+      }
+
+      // App deep link (intent)
+      const androidIntent = `intent://join?tournamentId=${tournamentId}#Intent;scheme=bsebprep;package=com.example.bsebprep;end`;
+
+      // ⛳ Telegram fallback (your APK download instructions/group)
+      const telegramLink = 'https://t.me/itzme_dear';
+
+      // Redirect to Telegram after 1.5s if app doesn't open
+      setTimeout(() => {
+        window.location.href = telegramLink;
+      }, 1500);
+
+      // Try opening the app via intent
+      window.location.href = androidIntent;
+    }
+  </script>
+</head>
+<body onload="openAppOrRedirect()" style="font-family:sans-serif;text-align:center;padding-top:50px;">
+  <h3>Opening BSEB PREP App...</h3>
+  <p>If not, you’ll be redirected to Telegram.</p>
+</body>
+</html>
