@@ -4,7 +4,13 @@
   <meta charset="UTF-8" />
   <title>Join Tournament - BSEB PREP</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      padding-top: 50px;
+    }
+  </style>
   <script>
     function openAppOrRedirect() {
       const params = new URLSearchParams(window.location.search);
@@ -15,17 +21,40 @@
         return;
       }
 
-      // App deep link (intent)
-     // App deep link (intent)
-const androidIntent = `intent://join?tournamentId=${tournamentId}#Intent;scheme=bsebprep;package=com.example.bsebprep;S.browser_fallback_url=https://t.me/itzme_dear;end`;
+      const androidIntentUrl = `intent://join?tournamentId=${tournamentId}#Intent;scheme=bsebprep;package=com.example.bsebprep;S.browser_fallback_url=https%3A%2F%2Ft.me%2Fitzme_dear;end`;
+      const iosUrl = `bsebprep://join?tournamentId=${tournamentId}`;
+      const telegramFallback = 'https://t.me/itzme_dear';
 
-      // ⛳ Telegram fallback (your APK download instructions/group)
-      const telegramLink = 'https://t.me/itzme_dear';
+      const userAgent = navigator.userAgent || navigator.vendor || window.opera;
 
-      // Redirect to Telegram after 1.5s if app doesn't open
-      setTimeout(() => {
-        window.location.href = telegramLink;
-      }, 1500);
+      // ✅ iOS logic
+      if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+        // Try opening the app
+        window.location.href = iosUrl;
+
+        // Fallback to Telegram after timeout
+        setTimeout(() => {
+          window.location.href = telegramFallback;
+        }, 2000);
+        return;
+      }
+
+      // ✅ Android logic (Chrome/others)
+      if (/android/i.test(userAgent)) {
+        window.location.replace(androidIntentUrl);
+        return;
+      }
+
+      // ✅ Desktop fallback
+      window.location.href = telegramFallback;
+    }
+  </script>
+</head>
+<body onload="openAppOrRedirect()">
+  <h3>Opening BSEB PREP App...</h3>
+  <p>If not, you’ll be redirected to Telegram shortly.</p>
+</body>
+</html>
 
       // Try opening the app via intent
       window.location.href = androidIntent;
