@@ -3,14 +3,43 @@
 <head>
   <meta charset="UTF-8" />
   <title>Join Tournament - BSEB PREP</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <!-- ✅ Social Sharing + SEO -->
+  <meta property="og:title" content="Join Tournament - BSEB PREP" />
+  <meta property="og:description" content="Tap to join this tournament on BSEB PREP." />
+  <meta property="og:image" content="https://yourcdn.com/tournament-banner.jpg" />
+  <meta property="og:url" content="https://your.github.io/redirect/tournament_redirect.html" />
+  <meta name="theme-color" content="#4CAF50" />
+
   <style>
     body {
       font-family: sans-serif;
       text-align: center;
       padding-top: 50px;
+      background-color: #f9f9f9;
+    }
+
+    h3 {
+      color: #333;
+    }
+
+    .spinner {
+      margin: 30px auto;
+      width: 40px;
+      height: 40px;
+      border: 4px solid #ccc;
+      border-top: 4px solid #4CAF50;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
     }
   </style>
+
   <script>
     function openAppOrRedirect() {
       const params = new URLSearchParams(window.location.search);
@@ -21,48 +50,34 @@
         return;
       }
 
-      const androidIntentUrl = `intent://join?tournamentId=${tournamentId}#Intent;scheme=bsebprep;package=com.example.bsebprep;S.browser_fallback_url=https%3A%2F%2Ft.me%2Fitzme_dear;end`;
+      // 🔁 Replace this when app is published
+      const fallbackUrl = 'https://t.me/itzme_dear';
+
+      // ✅ Android intent
+      const androidIntent = `intent://join?tournamentId=${tournamentId}#Intent;scheme=bsebprep;package=com.example.bsebprep;S.browser_fallback_url=${encodeURIComponent(fallbackUrl)};end`;
+
+      // ✅ iOS custom scheme
       const iosUrl = `bsebprep://join?tournamentId=${tournamentId}`;
-      const telegramFallback = 'https://t.me/itzme_dear';
 
-      const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+      // ✅ Detect platform
+      const ua = navigator.userAgent || navigator.vendor || window.opera;
 
-      // ✅ iOS logic
-      if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
-        // Try opening the app
+      if (/android/i.test(ua)) {
+        window.location.replace(androidIntent);
+      } else if (/iPhone|iPad|iPod/i.test(ua)) {
         window.location.href = iosUrl;
-
-        // Fallback to Telegram after timeout
         setTimeout(() => {
-          window.location.href = telegramFallback;
+          window.location.href = fallbackUrl;
         }, 2000);
-        return;
+      } else {
+        window.location.href = fallbackUrl; // Desktop fallback
       }
-
-      // ✅ Android logic (Chrome/others)
-      if (/android/i.test(userAgent)) {
-        window.location.replace(androidIntentUrl);
-        return;
-      }
-
-      // ✅ Desktop fallback
-      window.location.href = telegramFallback;
     }
   </script>
 </head>
 <body onload="openAppOrRedirect()">
   <h3>Opening BSEB PREP App...</h3>
-  <p>If not, you’ll be redirected to Telegram shortly.</p>
-</body>
-</html>
-
-      // Try opening the app via intent
-      window.location.href = androidIntent;
-    }
-  </script>
-</head>
-<body onload="openAppOrRedirect()" style="font-family:sans-serif;text-align:center;padding-top:50px;">
-  <h3>Opening BSEB PREP App...</h3>
-  <p>If not, you’ll be redirected to Telegram.</p>
+  <p>If it doesn’t open, you’ll be redirected shortly.</p>
+  <div class="spinner"></div>
 </body>
 </html>
