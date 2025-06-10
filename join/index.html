@@ -4,12 +4,12 @@
   <meta charset="UTF-8" />
   <title>Join Tournament - BSEB PREP</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
-  <!-- ✅ Social Sharing + SEO -->
+
+  <!-- ✅ Open Graph / SEO -->
   <meta property="og:title" content="Join Tournament - BSEB PREP" />
   <meta property="og:description" content="Tap to join this tournament on BSEB PREP." />
   <meta property="og:image" content="https://envs.sh/FFh.jpg" />
-  <meta property="og:url" content="https://your.github.io/redirect/tournament_redirect.html" />
+  <meta property="og:url" content="https://bsebpreo.github.io/join/index.html" />
   <meta name="theme-color" content="#4CAF50" />
 
   <style>
@@ -44,22 +44,15 @@
     function openAppOrRedirect() {
       const params = new URLSearchParams(window.location.search);
       const tournamentId = params.get('tournamentId');
+      const fallbackUrl = params.get('fallbackUrl') || 'https://t.me/itzme_dear';
 
       if (!tournamentId) {
         document.body.innerHTML = '<h2>Invalid tournament link</h2>';
         return;
       }
 
-      // 🔁 Replace this when app is published
-      const fallbackUrl = 'https://t.me/itzme_dear';
-
-      // ✅ Android intent
       const androidIntent = `intent://join?tournamentId=${tournamentId}#Intent;scheme=bsebprep;package=com.example.bsebprep;S.browser_fallback_url=${encodeURIComponent(fallbackUrl)};end`;
-
-      // ✅ iOS custom scheme
       const iosUrl = `bsebprep://join?tournamentId=${tournamentId}`;
-
-      // ✅ Detect platform
       const ua = navigator.userAgent || navigator.vendor || window.opera;
 
       if (/android/i.test(ua)) {
@@ -70,7 +63,7 @@
           window.location.href = fallbackUrl;
         }, 2000);
       } else {
-        window.location.href = fallbackUrl; // Desktop fallback
+        window.location.href = fallbackUrl; // Fallback for desktop
       }
     }
   </script>
