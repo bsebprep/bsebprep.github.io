@@ -1,4 +1,8 @@
 google.com, pub-1637727260805169, DIRECT, f08c47fec0942fa0
+# Network Name, Publisher/Account ID, Relationship Type
+applovin.com, 9eaf9ad6dc92d5fcn6f47c30168fb8fq, DIRECT
+mintegral.com, 19435, DIRECT, 0aeed123c80d6423
+google.com, pub-3940498599942544, DIRECT, f08c47fec0986fa0
 vungle.com,[yourVunglePublisherAccountID],DIRECT,c107d686becd2d77
 33across.com,001Pg0000197KcKIAU,RESELLER,bbea06d9c4d2853c
 Contextweb.com,562852,RESELLER,89ff185a4c4e857c
