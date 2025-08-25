@@ -1,5 +1,7 @@
 google.com, pub-1637727260805169, DIRECT, f08c47fec0942fa0
+inmobi.com, e1bf1a12212745a3b0a6074600f123c9, DIRECT, 83e75a7ae333ca9d
 facebook.com, 741156858705154, DIRECT, c3e20eee3f780d68
+facebook.com, 741156858705154, RESELLER, c3e20eee3f780d68
 # Network Name, Publisher/Account ID, Relationship Type
 applovin.com, 9eaf9ad6dc92d5fcn6f47c30168fb8fq, DIRECT
 mintegral.com, 19435, DIRECT, 0aeed123c80d6423
