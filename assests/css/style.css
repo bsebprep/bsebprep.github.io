@@ -5,9 +5,16 @@ body {
   color: #222;
 }
 
+/* Header */
 .site-header {
   text-align: center;
   padding: 3rem 1rem;
+}
+
+.logo {
+  width: 90px;
+  height: auto;
+  margin-bottom: 1rem;
 }
 
 .site-header h1 {
@@ -20,6 +27,7 @@ body {
   color: #555;
 }
 
+/* Navbar */
 .navbar {
   text-align: center;
   margin-bottom: 2rem;
@@ -36,6 +44,7 @@ body {
   text-decoration: underline;
 }
 
+/* Card Section */
 .card {
   max-width: 700px;
   margin: 2rem auto;
@@ -49,6 +58,7 @@ body {
   color: #1a73e8;
 }
 
+/* Play Store Button */
 .playstore-btn {
   display: inline-block;
   margin-top: 1.5rem;
@@ -64,6 +74,7 @@ body {
   background: #174ea6;
 }
 
+/* Footer */
 .site-footer {
   text-align: center;
   padding: 2rem;
@@ -71,6 +82,7 @@ body {
   color: #777;
 }
 
+/* Social Links (future use) */
 .social-links a {
   margin-right: 1.5rem;
   color: #1a73e8;
