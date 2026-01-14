@@ -78,9 +78,8 @@ a student-focused education and technology initiative.
 ## Live Website
 
 🔗 **GitHub Pages Website:**  
-https://<your-github-username>.github.io/bseb-prep-website/
+https://bsebprep.github.io/
 
-*(Replace with your actual GitHub Pages link)*
 
 ---
 
