@@ -1,195 +1,967 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- ================= Basic Meta ================= -->
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#0f1b2d">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
-    <!-- ================= SEO Meta ================= -->
     <title>Bseb Prep | Smart Bihar Board Exam Preparation</title>
     <meta name="description" content="Bseb Prep is a focused Bihar Board exam preparation platform for Class 10 & 12 students.">
     <meta name="author" content="Intangible Network">
 
-    <!-- ================= CSS ================= -->
-    <link rel="stylesheet" href="/assets/css/style.css">
+    <!-- Open Graph -->
+    <meta property="og:title" content="Bseb Prep | Smart Bihar Board Exam Preparation">
+    <meta property="og:description" content="Bihar Board Class 10 & 12 digital learning platform.">
+    <meta property="og:type" content="website">
 
-    <!-- ================= Favicon (using logo.png correctly) ================= -->
     <link rel="icon" type="image/png" href="/assets/images/logo.png">
     <link rel="apple-touch-icon" href="/assets/images/logo.png">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=Noto+Sans+Devanagari:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <!-- SVG Social Icons inline via CSS background (no CDN needed) -->
+    <style>
+        .social-svg { width: 48px; height: 48px; display: block; }
+    </style>
+
+    <style>
+        /* ====== RESET & BASE ====== */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --bg-deep:    #080e1a;
+            --bg-card:    #0f1b2d;
+            --bg-card2:   #131f33;
+            --accent:     #f5a623;
+            --accent2:    #e8440a;
+            --text:       #e8edf5;
+            --text-muted: #8fa0b8;
+            --border:     rgba(245,166,35,0.18);
+            --radius:     14px;
+            --glow:       0 0 32px rgba(245,166,35,0.18);
+            --font:       'Sora', 'Noto Sans Devanagari', sans-serif;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: var(--font);
+            background: var(--bg-deep);
+            color: var(--text);
+            line-height: 1.65;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ====== GRAIN OVERLAY ====== */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.5;
+        }
+
+        /* ====== CONTAINER ====== */
+        .container {
+            width: min(100%, 1100px);
+            margin-inline: auto;
+            padding-inline: clamp(1rem, 5vw, 2.5rem);
+        }
+
+        /* ====== HEADER ====== */
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(8,14,26,0.88);
+            backdrop-filter: blur(20px) saturate(1.4);
+            -webkit-backdrop-filter: blur(20px) saturate(1.4);
+            border-bottom: 1px solid var(--border);
+            padding: 0.75rem 0;
+        }
+
+        .nav-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            text-decoration: none;
+        }
+
+        .logo img {
+            width: 36px;
+            height: 36px;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+
+        .logo span {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--accent);
+            letter-spacing: -0.02em;
+            white-space: nowrap;
+        }
+
+        .navbar {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            flex-wrap: wrap;
+        }
+
+        .navbar a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 500;
+            padding: 0.4rem 0.8rem;
+            border-radius: 8px;
+            transition: color 0.2s, background 0.2s;
+        }
+
+        .navbar a:hover,
+        .navbar a.active {
+            color: var(--text);
+            background: rgba(245,166,35,0.1);
+        }
+
+        .lang-toggle {
+            background: var(--border);
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            font-family: var(--font);
+            font-size: 0.8rem;
+            font-weight: 600;
+            padding: 0.35rem 0.9rem;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s;
+            white-space: nowrap;
+        }
+
+        .lang-toggle:hover {
+            background: var(--accent);
+            color: #000;
+        }
+
+        /* Hamburger */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 4px;
+            background: none;
+            border: none;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--text);
+            border-radius: 2px;
+            transition: transform 0.3s, opacity 0.3s;
+        }
+
+        /* ====== HERO ====== */
+        .hero {
+            position: relative;
+            overflow: hidden;
+            padding: clamp(3rem, 8vw, 6rem) 0 clamp(2rem, 6vw, 4rem);
+        }
+
+        /* Background glow blobs */
+        .hero::before, .hero::after {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            pointer-events: none;
+        }
+        .hero::before {
+            width: 500px; height: 500px;
+            background: rgba(245,166,35,0.12);
+            top: -100px; right: -100px;
+        }
+        .hero::after {
+            width: 400px; height: 400px;
+            background: rgba(232,68,10,0.08);
+            bottom: -50px; left: -80px;
+        }
+
+        .hero-content {
+            position: relative;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: clamp(2rem, 5vw, 4rem);
+            align-items: center;
+        }
+
+        .hero-text h1 {
+            font-size: clamp(1.75rem, 4vw, 3rem);
+            font-weight: 800;
+            line-height: 1.2;
+            letter-spacing: -0.03em;
+            margin-bottom: 1.2rem;
+            background: linear-gradient(135deg, #fff 40%, var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-text p {
+            color: var(--text-muted);
+            font-size: clamp(0.95rem, 2vw, 1.1rem);
+            margin-bottom: 2rem;
+            max-width: 480px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.7rem 1.4rem;
+            border-radius: 10px;
+            font-family: var(--font);
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            border: none;
+            transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+            white-space: nowrap;
+        }
+
+        .primary-btn {
+            background: var(--accent);
+            color: #000;
+        }
+
+        .primary-btn:hover {
+            background: #ffc14a;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(245,166,35,0.35);
+        }
+
+        .secondary-btn {
+            background: transparent;
+            color: var(--text);
+            border: 1.5px solid var(--border);
+        }
+
+        .secondary-btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .hero-image {
+            position: relative;
+        }
+
+        .hero-image img {
+            width: 100%;
+            border-radius: 18px;
+            object-fit: cover;
+            border: 1px solid var(--border);
+            box-shadow: var(--glow);
+            display: block;
+        }
+
+        /* Fallback if image missing */
+        .hero-image-placeholder {
+            width: 100%;
+            aspect-ratio: 4/3;
+            border-radius: 18px;
+            background: linear-gradient(135deg, var(--bg-card2), #1a2a40);
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            box-shadow: var(--glow);
+        }
+
+        /* ====== REEL SECTION ====== */
+        .reel-section {
+            padding: clamp(3rem, 6vw, 5rem) 0;
+            background: var(--bg-card);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .reel-content {
+            text-align: center;
+        }
+
+        .section-tag {
+            display: inline-block;
+            background: rgba(245,166,35,0.12);
+            color: var(--accent);
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            padding: 0.3rem 0.9rem;
+            border-radius: 20px;
+            margin-bottom: 1rem;
+            border: 1px solid var(--border);
+        }
+
+        .reel-content h2, .highlights h2, .social-section h2 {
+            font-size: clamp(1.4rem, 3vw, 2.2rem);
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            margin-bottom: 0.6rem;
+        }
+
+        .reel-subtext {
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            font-size: 0.95rem;
+        }
+
+        /* ====== VIDEO FIX ====== */
+        .reel-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 380px;
+            margin: 0 auto;
+            border-radius: 24px;
+            overflow: hidden;
+            border: 2px solid var(--border);
+            box-shadow: 0 0 60px rgba(245,166,35,0.15), 0 24px 64px rgba(0,0,0,0.5);
+            background: #000;
+            /* Fix for aspect ratio consistency */
+            aspect-ratio: 9/16;
+        }
+
+        .reel-video {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            /* Prevent stretching/misbehaving */
+            object-position: center;
+        }
+
+        /* Device mockup chrome */
+        .reel-wrapper::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 50%; transform: translateX(-50%);
+            width: 90px; height: 26px;
+            background: rgba(0,0,0,0.7);
+            border-radius: 0 0 16px 16px;
+            z-index: 2;
+        }
+
+        /* ====== HIGHLIGHTS ====== */
+        .highlights {
+            padding: clamp(3rem, 6vw, 5rem) 0;
+        }
+
+        .highlights h2 {
+            text-align: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .highlights-subtitle {
+            text-align: center;
+            color: var(--text-muted);
+            margin-bottom: 2.5rem;
+            font-size: 0.95rem;
+        }
+
+        .highlight-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.25rem;
+        }
+
+        .highlight-card {
+            background: var(--bg-card2);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: clamp(1.25rem, 3vw, 1.75rem);
+            transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .highlight-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent2), var(--accent));
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .highlight-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 36px rgba(0,0,0,0.35), var(--glow);
+            border-color: var(--accent);
+        }
+
+        .highlight-card:hover::before { opacity: 1; }
+
+        .card-icon {
+            font-size: 2rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .highlight-card h3 {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--text);
+        }
+
+        .highlight-card p {
+            color: var(--text-muted);
+            font-size: 0.875rem;
+            line-height: 1.6;
+        }
+
+        /* ====== SOCIAL SECTION ====== */
+        .social-section {
+            padding: clamp(3rem, 6vw, 5rem) 0;
+            background: var(--bg-card);
+            border-top: 1px solid var(--border);
+        }
+
+        .social-section h2 {
+            text-align: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .social-subtitle {
+            text-align: center;
+            color: var(--text-muted);
+            margin-bottom: 2.5rem;
+            font-size: 0.95rem;
+        }
+
+        .social-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .social-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 1.5rem 1rem;
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            text-decoration: none;
+            color: var(--text);
+            background: var(--bg-card2);
+            transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .social-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(0,0,0,0.3);
+        }
+
+        .social-card.instagram:hover { border-color: #e1306c; box-shadow: 0 8px 24px rgba(225,48,108,0.3); }
+        .social-card.telegram:hover  { border-color: #2ca5e0; box-shadow: 0 8px 24px rgba(44,165,224,0.3); }
+        .social-card.youtube:hover   { border-color: #ff0000; box-shadow: 0 8px 24px rgba(255,0,0,0.3); }
+
+        .social-icon {
+            font-size: 2.2rem;
+            line-height: 1;
+        }
+
+        .social-svg {
+            width: 52px;
+            height: 52px;
+            display: block;
+            border-radius: 12px;
+            transition: transform 0.25s, box-shadow 0.25s;
+        }
+
+        .social-card:hover .social-svg {
+            transform: scale(1.08);
+        }
+
+        .social-card.instagram:hover .social-svg { box-shadow: 0 6px 20px rgba(225,48,108,0.5); }
+        .social-card.telegram:hover  .social-svg { box-shadow: 0 6px 20px rgba(41,182,246,0.5); }
+        .social-card.youtube:hover   .social-svg { box-shadow: 0 6px 20px rgba(255,0,0,0.5); }
+
+        .social-handle {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            font-weight: 400;
+        }
+
+        /* ====== FOOTER ====== */
+        .footer {
+            padding: 2rem 0;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-left h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 0.25rem;
+        }
+
+        .footer-left p {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        .footer-right {
+            text-align: right;
+        }
+
+        .footer-right p {
+            color: var(--text-muted);
+            font-size: 0.82rem;
+        }
+
+        .disclaimer {
+            font-size: 0.75rem !important;
+            opacity: 0.6;
+        }
+
+        /* ====== MOBILE NAV ====== */
+        @media (max-width: 768px) {
+            .hamburger { display: flex; }
+
+            .navbar {
+                position: fixed;
+                top: 0; right: -100%;
+                width: min(280px, 80vw);
+                height: 100vh;
+                background: rgba(8,14,26,0.97);
+                backdrop-filter: blur(20px);
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 5rem 1.5rem 2rem;
+                gap: 0.5rem;
+                transition: right 0.3s cubic-bezier(.4,0,.2,1);
+                border-left: 1px solid var(--border);
+                z-index: 200;
+            }
+
+            .navbar.open { right: 0; }
+
+            .navbar a {
+                font-size: 1rem;
+                padding: 0.6rem 1rem;
+                width: 100%;
+            }
+
+            .lang-toggle { margin-top: 1rem; }
+
+            .nav-overlay {
+                display: none;
+                position: fixed;
+                inset: 0;
+                background: rgba(0,0,0,0.5);
+                z-index: 150;
+            }
+
+            .nav-overlay.active { display: block; }
+
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-text p { max-width: 100%; }
+            .hero-buttons { justify-content: center; }
+            .hero-image { order: -1; max-width: 320px; margin: 0 auto; }
+
+            .footer-content { flex-direction: column; text-align: center; }
+            .footer-right { text-align: center; }
+        }
+
+        @media (max-width: 480px) {
+            .reel-wrapper { max-width: 280px; }
+            .hero-buttons { flex-direction: column; align-items: center; }
+            .btn { width: 100%; justify-content: center; }
+        }
+
+        /* ====== ANIMATIONS ====== */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(28px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero-text h1  { animation: fadeUp 0.7s ease both; }
+        .hero-text p   { animation: fadeUp 0.7s 0.1s ease both; }
+        .hero-buttons  { animation: fadeUp 0.7s 0.2s ease both; }
+        .hero-image    { animation: fadeUp 0.7s 0.15s ease both; }
+
+        /* ====== SCROLL REVEAL ====== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
 </head>
 <body>
 
-    <!-- ================= Header ================= -->
-    <header class="header">
-        <div class="container nav-container">
-            <div class="logo">
-                <img src="/assets/images/logo.png" alt="Bseb Prep Logo">
-                <span>Bseb Prep - For Bihar Board</span>
+<!-- Nav overlay for mobile -->
+<div class="nav-overlay" id="navOverlay"></div>
+
+<!-- ====== HEADER ====== -->
+<header class="header">
+    <div class="container nav-container">
+        <a href="index.html" class="logo">
+            <img src="/assets/images/logo.png" alt="Bseb Prep Logo"
+                 onerror="this.style.display='none'">
+            <span>Bseb Prep</span>
+        </a>
+
+        <button class="hamburger" id="hamburger" aria-label="Open menu">
+            <span></span><span></span><span></span>
+        </button>
+
+        <nav class="navbar" id="navbar">
+            <a href="index.html" class="active" data-en="Home" data-hi="होम">Home</a>
+            <a href="features.html" data-en="Features" data-hi="विशेषताएँ">Features</a>
+            <a href="contact.html" data-en="Contact" data-hi="संपर्क">Contact</a>
+            <button class="lang-toggle" id="langBtn">हिंदी</button>
+        </nav>
+    </div>
+</header>
+
+<!-- ====== HERO ====== -->
+<section class="hero">
+    <div class="container hero-content">
+        <div class="hero-text">
+            <div class="section-tag" data-en="Bihar Board Class 10 & 12" data-hi="बिहार बोर्ड कक्षा 10 और 12">
+                Bihar Board Class 10 &amp; 12
             </div>
-
-            <nav class="navbar">
-                <a href="index.html" class="active" data-en="Home" data-hi="होम">Home</a>
-                <a href="features.html" data-en="Features" data-hi="विशेषताएँ">Features</a>
-                <a href="contact.html" data-en="Contact" data-hi="संपर्क">Contact</a>
-
-                <!-- Language Button -->
-                <button class="lang-toggle" id="langBtn">हिंदी</button>
-            </nav>
-        </div>
-    </header>
-
-    <!-- ================= Hero ================= -->
-    <section class="hero">
-        <div class="container hero-content">
-            <div class="hero-text">
-                <h1 data-en="Smart & Reliable Preparation for Bihar Board Exams"
-                    data-hi="बिहार बोर्ड परीक्षा के लिए स्मार्ट और भरोसेमंद तैयारी">
-                    Smart & Reliable Preparation for Bihar Board Exams
-                </h1>
-
-                <p data-en="Bseb Prep is a student-first digital learning platform created exclusively for Bihar Board Class 10th and 12th students."
-                   data-hi="Bseb Prep एक छात्र-केंद्रित डिजिटल लर्निंग प्लेटफॉर्म है, जिसे विशेष रूप से बिहार बोर्ड कक्षा 10वीं और 12वीं के छात्रों के लिए बनाया गया है।">
-                    Bseb Prep is a student-first digital learning platform created exclusively for Bihar Board Class 10th and 12th students.
-                </p>
-
-                <div class="hero-buttons">
-                    <a href="#reel" class="btn primary-btn"
-                       data-en="See How It Works"
-                       data-hi="कैसे काम करता है देखें">
-                        See How It Works
-                    </a>
-
-                    <a href="https://play.google.com/store/apps/details?id=com.intangible.bsebprep"
-                       target="_blank"
-                       class="btn secondary-btn"
-                       data-en="Download Android App"
-                       data-hi="एंड्रॉइड ऐप डाउनलोड करें">
-                        Download Android App
-                    </a>
-                </div>
-            </div>
-
-            <div class="hero-image">
-                <img src="/assets/images/hero-banner.jpg" alt="Bseb Prep Platform">
-            </div>
-        </div>
-    </section>
-
-    <!-- ================= Reel ================= -->
-    <section class="reel-section" id="reel">
-        <div class="container reel-content" style="text-align:center;">
-            <h2 data-en="Understand Bseb Prep in 30 Seconds"
-                data-hi="30 सेकंड में Bseb Prep को समझें">
-                Understand Bseb Prep in 30 Seconds
-            </h2>
-
-            <p class="reel-subtext"
-               data-en="Watch how Bseb Prep simplifies Bihar Board preparation."
-               data-hi="देखें कैसे Bseb Prep बिहार बोर्ड की तैयारी को आसान बनाता है।">
-                Watch how Bseb Prep simplifies Bihar Board preparation.
+            <h1 data-en="Smart & Reliable Preparation for Bihar Board Exams"
+                data-hi="बिहार बोर्ड परीक्षा के लिए स्मार्ट और भरोसेमंद तैयारी">
+                Smart &amp; Reliable Preparation for Bihar Board Exams
+            </h1>
+            <p data-en="Bseb Prep is a student-first digital learning platform created exclusively for Bihar Board Class 10th and 12th students."
+               data-hi="Bseb Prep एक छात्र-केंद्रित डिजिटल लर्निंग प्लेटफॉर्म है, जिसे विशेष रूप से बिहार बोर्ड कक्षा 10वीं और 12वीं के छात्रों के लिए बनाया गया है।">
+                Bseb Prep is a student-first digital learning platform created exclusively for Bihar Board Class 10th and 12th students.
             </p>
-
-            <div class="reel-wrapper">
-                <video class="reel-video"
-                       src="/assets/videos/bsebprep4.mp4"
-                       autoplay
-                       muted
-                       loop
-                       playsinline
-                       controls>
-                </video>
+            <div class="hero-buttons">
+                <a href="#reel" class="btn primary-btn"
+                   data-en="▶ See How It Works"
+                   data-hi="▶ कैसे काम करता है देखें">
+                    ▶ See How It Works
+                </a>
+                <a href="https://play.google.com/store/apps/details?id=com.intangible.bsebprep"
+                   target="_blank" rel="noopener"
+                   class="btn secondary-btn"
+                   data-en="⬇ Download App"
+                   data-hi="⬇ ऐप डाउनलोड करें">
+                    ⬇ Download App
+                </a>
             </div>
         </div>
-    </section>
 
-    <!-- ================= Highlights ================= -->
-    <section class="highlights">
-        <div class="container">
-            <h2 data-en="What Makes Bseb Prep Different"
-                data-hi="Bseb Prep को अलग क्या बनाता है">
-                What Makes Bseb Prep Different
-            </h2>
-
-            <div class="highlight-grid">
-                <div class="highlight-card">
-                    <h3 data-en="Exam-Pattern Accuracy"
-                        data-hi="परीक्षा पैटर्न पर आधारित तैयारी">
-                        Exam-Pattern Accuracy
-                    </h3>
-                    <p data-en="Prepared strictly according to Bihar Board exam trends."
-                       data-hi="बिहार बोर्ड के नवीनतम परीक्षा पैटर्न के अनुसार तैयार।">
-                        Prepared strictly according to Bihar Board exam trends.
-                    </p>
-                </div>
-
-                <div class="highlight-card">
-                    <h3 data-en="Objective-Focused Strategy"
-                        data-hi="ऑब्जेक्टिव पर विशेष फोकस">
-                        Objective-Focused Strategy
-                    </h3>
-                    <p data-en="Special focus on objective questions."
-                       data-hi="ऑब्जेक्टिव प्रश्नों पर विशेष ध्यान।">
-                        Special focus on objective questions.
-                    </p>
-                </div>
-
-                <div class="highlight-card">
-                    <h3 data-en="Student-Friendly Design"
-                        data-hi="छात्रों के लिए सरल डिज़ाइन">
-                        Student-Friendly Design
-                    </h3>
-                    <p data-en="Simple and distraction-free interface."
-                       data-hi="सरल और बिना भटकाव वाला इंटरफेस।">
-                        Simple and distraction-free interface.
-                    </p>
-                </div>
-            </div>
+        <div class="hero-image">
+            <img src="/assets/images/hero-banner.jpg" alt="Bseb Prep Platform"
+                 onerror="this.parentElement.innerHTML='<div class=\'hero-image-placeholder\'>📱</div>'">
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- ================= Footer ================= -->
-    <footer class="footer">
-        <div class="container footer-content">
-            <div class="footer-left">
-                <h3>Bseb Prep</h3>
-                <p data-en="A Bihar Board focused preparation platform."
-                   data-hi="बिहार बोर्ड केंद्रित तैयारी प्लेटफॉर्म।">
-                    A Bihar Board focused preparation platform.
+<!-- ====== REEL ====== -->
+<section class="reel-section" id="reel">
+    <div class="container reel-content">
+        <div class="section-tag reveal" data-en="Demo" data-hi="डेमो">Demo</div>
+        <h2 class="reveal"
+            data-en="Understand Bseb Prep in 30 Seconds"
+            data-hi="30 सेकंड में Bseb Prep को समझें">
+            Understand Bseb Prep in 30 Seconds
+        </h2>
+        <p class="reel-subtext reveal"
+           data-en="Watch how Bseb Prep simplifies Bihar Board preparation."
+           data-hi="देखें कैसे Bseb Prep बिहार बोर्ड की तैयारी को आसान बनाता है।">
+            Watch how Bseb Prep simplifies Bihar Board preparation.
+        </p>
+
+        <div class="reel-wrapper reveal">
+            <video class="reel-video"
+                   src="/assets/videos/bsebprep4.mp4"
+                   autoplay
+                   muted
+                   loop
+                   playsinline
+                   preload="metadata"
+                   webkit-playsinline>
+                Your browser does not support the video tag.
+            </video>
+        </div>
+    </div>
+</section>
+
+<!-- ====== HIGHLIGHTS ====== -->
+<section class="highlights">
+    <div class="container">
+        <div class="section-tag reveal" style="display:block;width:fit-content;margin:0 auto 1rem;"
+             data-en="Why Choose Us" data-hi="हमें क्यों चुनें">Why Choose Us</div>
+        <h2 class="reveal"
+            data-en="What Makes Bseb Prep Different"
+            data-hi="Bseb Prep को अलग क्या बनाता है">
+            What Makes Bseb Prep Different
+        </h2>
+        <p class="highlights-subtitle reveal"
+           data-en="Built from the ground up for Bihar Board students."
+           data-hi="बिहार बोर्ड के छात्रों के लिए विशेष रूप से निर्मित।">
+            Built from the ground up for Bihar Board students.
+        </p>
+
+        <div class="highlight-grid">
+            <div class="highlight-card reveal">
+                <div class="card-icon">🎯</div>
+                <h3 data-en="Exam-Pattern Accuracy" data-hi="परीक्षा पैटर्न पर आधारित">Exam-Pattern Accuracy</h3>
+                <p data-en="Prepared strictly according to Bihar Board exam trends and the latest syllabus."
+                   data-hi="बिहार बोर्ड के नवीनतम परीक्षा पैटर्न और पाठ्यक्रम के अनुसार तैयार।">
+                    Prepared strictly according to Bihar Board exam trends and the latest syllabus.
                 </p>
             </div>
-
-            <div class="footer-right">
-                <p>Powered by <strong>Intangible Network</strong></p>
-                <p class="disclaimer"
-                   data-en="Unofficial platform for academic support."
-                   data-hi="यह एक अनौपचारिक शैक्षणिक सहायता प्लेटफॉर्म है।">
-                    Unofficial platform for academic support.
+            <div class="highlight-card reveal">
+                <div class="card-icon">✅</div>
+                <h3 data-en="Objective-Focused Strategy" data-hi="ऑब्जेक्टिव पर विशेष फोकस">Objective-Focused Strategy</h3>
+                <p data-en="Special focus on objective questions that carry maximum marks in the exam."
+                   data-hi="ऑब्जेक्टिव प्रश्नों पर विशेष ध्यान जो परीक्षा में अधिकतम अंक लाते हैं।">
+                    Special focus on objective questions that carry maximum marks in the exam.
+                </p>
+            </div>
+            <div class="highlight-card reveal">
+                <div class="card-icon">📱</div>
+                <h3 data-en="Student-Friendly Design" data-hi="छात्रों के लिए सरल डिज़ाइन">Student-Friendly Design</h3>
+                <p data-en="Simple, distraction-free interface that works on any device."
+                   data-hi="सरल और बिना भटकाव वाला इंटरफेस, किसी भी डिवाइस पर काम करता है।">
+                    Simple, distraction-free interface that works on any device.
                 </p>
             </div>
         </div>
-    </footer>
+    </div>
+</section>
 
-    <!-- ================= Language Script (with localStorage) ================= -->
-    <script>
-        const btn = document.getElementById("langBtn");
-        let currentLang = localStorage.getItem("lang") || "en";
+<!-- ====== SOCIAL SECTION ====== -->
+<section class="social-section">
+    <div class="container">
+        <div class="section-tag reveal" style="display:block;width:fit-content;margin:0 auto 1rem;"
+             data-en="Stay Connected" data-hi="जुड़े रहें">Stay Connected</div>
+        <h2 class="reveal"
+            data-en="Follow Us on Social Media"
+            data-hi="सोशल मीडिया पर हमें फॉलो करें">
+            Follow Us on Social Media
+        </h2>
+        <p class="social-subtitle reveal"
+           data-en="Get daily updates, tips & mock tests directly on your favourite platform."
+           data-hi="अपने पसंदीदा प्लेटफॉर्म पर सीधे डेली अपडेट, टिप्स और मॉक टेस्ट पाएं।">
+            Get daily updates, tips &amp; mock tests directly on your favourite platform.
+        </p>
 
-        function applyLanguage(lang) {
-            document.querySelectorAll("[data-en]").forEach(el => {
-                el.innerText = el.dataset[lang];
-            });
-            btn.innerText = lang === "en" ? "हिंदी" : "English";
-            document.documentElement.lang = lang;
-            localStorage.setItem("lang", lang);
-        }
+        <div class="social-grid">
+            <!-- Instagram -->
+            <a href="https://www.instagram.com/bsebprep"
+               target="_blank" rel="noopener"
+               class="social-card instagram reveal">
+                <svg class="social-svg" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <radialGradient id="ig-grad" cx="30%" cy="107%" r="150%">
+                            <stop offset="0%" stop-color="#ffd600"/>
+                            <stop offset="30%" stop-color="#ff6f00"/>
+                            <stop offset="60%" stop-color="#e91e63"/>
+                            <stop offset="100%" stop-color="#7e57c2"/>
+                        </radialGradient>
+                    </defs>
+                    <rect width="48" height="48" rx="12" fill="url(#ig-grad)"/>
+                    <rect x="13" y="13" width="22" height="22" rx="6" stroke="white" stroke-width="2.5" fill="none"/>
+                    <circle cx="24" cy="24" r="5.5" stroke="white" stroke-width="2.5" fill="none"/>
+                    <circle cx="31" cy="17" r="1.5" fill="white"/>
+                </svg>
+                <span data-en="Instagram" data-hi="इंस्टाग्राम">Instagram</span>
+                <span class="social-handle">@bsebprep</span>
+            </a>
 
-        applyLanguage(currentLang);
+            <!-- Telegram -->
+            <a href="https://t.me/bsebprep"
+               target="_blank" rel="noopener"
+               class="social-card telegram reveal">
+                <svg class="social-svg" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="48" height="48" rx="12" fill="#29b6f6"/>
+                    <path d="M10 23.5L36.5 13L29 36L22.5 29.5L18 33V27L31 16.5L16 25.5L10 23.5Z"
+                          fill="white" stroke="white" stroke-width="0.5" stroke-linejoin="round"/>
+                    <path d="M18 27L22.5 29.5L21 36L18 33V27Z" fill="#bbdefb"/>
+                </svg>
+                <span data-en="Telegram" data-hi="टेलीग्राम">Telegram</span>
+                <span class="social-handle">@bsebprep</span>
+            </a>
 
-        btn.addEventListener("click", () => {
-            currentLang = currentLang === "en" ? "hi" : "en";
-            applyLanguage(currentLang);
+            <!-- YouTube -->
+            <a href="https://www.youtube.com/@bsebprep_Bihar"
+               target="_blank" rel="noopener"
+               class="social-card youtube reveal">
+                <svg class="social-svg" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="48" height="48" rx="12" fill="#ff0000"/>
+                    <path d="M38.5 17.5C38.5 17.5 38.1 15.2 37.1 14.2C35.8 12.8 34.4 12.8 33.7 12.7C29.1 12.4 22.5 12.4 22.5 12.4H22.5C22.5 12.4 15.9 12.4 11.3 12.7C10.6 12.8 9.2 12.8 7.9 14.2C6.9 15.2 6.5 17.5 6.5 17.5S6 20.2 6 22.9V25.5C6 28.2 6.5 30.9 6.5 30.9C6.5 30.9 6.9 33.2 7.9 34.2C9.2 35.6 10.9 35.5 11.7 35.7C14.4 35.9 22.5 36 22.5 36C22.5 36 29.1 36 33.7 35.6C34.4 35.5 35.8 35.5 37.1 34.1C38.1 33.1 38.5 30.8 38.5 30.8C38.5 30.8 39 28.1 39 25.4V22.8C39 20.2 38.5 17.5 38.5 17.5ZM19.5 28.8V18.8L29.5 23.8L19.5 28.8Z"
+                          fill="white"/>
+                </svg>
+                <span data-en="YouTube" data-hi="यूट्यूब">YouTube</span>
+                <span class="social-handle">@bsebprep_Bihar</span>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- ====== FOOTER ====== -->
+<footer class="footer">
+    <div class="container footer-content">
+        <div class="footer-left">
+            <h3>Bseb Prep</h3>
+            <p data-en="A Bihar Board focused preparation platform."
+               data-hi="बिहार बोर्ड केंद्रित तैयारी प्लेटफॉर्म।">
+                A Bihar Board focused preparation platform.
+            </p>
+        </div>
+        <div class="footer-right">
+            <p>Powered by <strong>Intangible Network</strong></p>
+            <p class="disclaimer"
+               data-en="Unofficial platform for academic support."
+               data-hi="यह एक अनौपचारिक शैक्षणिक सहायता प्लेटफॉर्म है।">
+                Unofficial platform for academic support.
+            </p>
+        </div>
+    </div>
+</footer>
+
+<!-- ====== SCRIPTS ====== -->
+<script>
+    /* ----- Language Toggle ----- */
+    const langBtn = document.getElementById('langBtn');
+    let currentLang = localStorage.getItem('lang') || 'en';
+
+    function applyLanguage(lang) {
+        document.querySelectorAll('[data-en]').forEach(el => {
+            if (el.dataset[lang]) el.innerText = el.dataset[lang];
         });
-    </script>
+        langBtn.innerText = lang === 'en' ? 'हिंदी' : 'English';
+        document.documentElement.lang = lang === 'hi' ? 'hi' : 'en';
+        localStorage.setItem('lang', lang);
+    }
+
+    applyLanguage(currentLang);
+
+    langBtn.addEventListener('click', () => {
+        currentLang = currentLang === 'en' ? 'hi' : 'en';
+        applyLanguage(currentLang);
+    });
+
+    /* ----- Mobile Nav ----- */
+    const hamburger = document.getElementById('hamburger');
+    const navbar    = document.getElementById('navbar');
+    const overlay   = document.getElementById('navOverlay');
+
+    function openNav() {
+        navbar.classList.add('open');
+        overlay.classList.add('active');
+        hamburger.setAttribute('aria-expanded', 'true');
+    }
+
+    function closeNav() {
+        navbar.classList.remove('open');
+        overlay.classList.remove('active');
+        hamburger.setAttribute('aria-expanded', 'false');
+    }
+
+    hamburger.addEventListener('click', () => {
+        navbar.classList.contains('open') ? closeNav() : openNav();
+    });
+    overlay.addEventListener('click', closeNav);
+    navbar.querySelectorAll('a').forEach(a => a.addEventListener('click', closeNav));
+
+    /* ----- Scroll Reveal ----- */
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((e, i) => {
+            if (e.isIntersecting) {
+                // Stagger cards in a grid
+                const siblings = e.target.parentElement.querySelectorAll('.reveal');
+                let delay = 0;
+                siblings.forEach((s, idx) => { if (s === e.target) delay = idx * 80; });
+                e.target.style.transitionDelay = delay + 'ms';
+                e.target.classList.add('visible');
+                observer.unobserve(e.target);
+            }
+        });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    /* ----- Video autoplay fix (mobile browsers) ----- */
+    document.querySelectorAll('video[autoplay]').forEach(vid => {
+        vid.muted = true;
+        vid.setAttribute('playsinline', '');
+        // Attempt play, fallback gracefully
+        const playPromise = vid.play();
+        if (playPromise !== undefined) {
+            playPromise.catch(() => {
+                // Add tap-to-play overlay on failure
+                const wrapper = vid.parentElement;
+                const tap = document.createElement('div');
+                tap.innerHTML = '▶';
+                tap.style.cssText = 'position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:3rem;color:rgba(255,255,255,0.8);cursor:pointer;z-index:5;background:rgba(0,0,0,0.3);';
+                tap.addEventListener('click', () => { vid.play(); tap.remove(); });
+                wrapper.appendChild(tap);
+            });
+        }
+    });
+</script>
 
 </body>
 </html>
