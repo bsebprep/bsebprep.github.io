@@ -344,19 +344,19 @@
             font-size: 0.95rem;
         }
 
-        /* ====== VIDEO FIX ====== */
+        /* ====== VIDEO FIX — YouTube-style 16:9, fully responsive ====== */
         .reel-wrapper {
             position: relative;
             width: 100%;
-            max-width: 380px;
+            max-width: 860px;
             margin: 0 auto;
-            border-radius: 24px;
+            border-radius: 16px;
             overflow: hidden;
             border: 2px solid var(--border);
-            box-shadow: 0 0 60px rgba(245,166,35,0.15), 0 24px 64px rgba(0,0,0,0.5);
+            box-shadow: 0 0 60px rgba(245,166,35,0.12), 0 32px 80px rgba(0,0,0,0.6);
             background: #000;
-            /* Fix for aspect ratio consistency */
-            aspect-ratio: 9/16;
+            /* 16:9 aspect ratio — works on every screen size */
+            aspect-ratio: 16 / 9;
         }
 
         .reel-video {
@@ -364,21 +364,10 @@
             inset: 0;
             width: 100%;
             height: 100%;
-            object-fit: cover;
-            display: block;
-            /* Prevent stretching/misbehaving */
+            object-fit: contain;   /* show full video, no cropping */
             object-position: center;
-        }
-
-        /* Device mockup chrome */
-        .reel-wrapper::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 50%; transform: translateX(-50%);
-            width: 90px; height: 26px;
-            background: rgba(0,0,0,0.7);
-            border-radius: 0 0 16px 16px;
-            z-index: 2;
+            display: block;
+            background: #000;
         }
 
         /* ====== HIGHLIGHTS ====== */
@@ -963,5 +952,7 @@
     });
 </script>
 
+</body>
+</html>
 </body>
 </html>
